@@ -1,31 +1,40 @@
 import React from "react";
-import unsplash from "../api/unsplash";
 import SearchBar from "./SearchBar";
-import ImageList from "./ImageList";
+import LocationList from "./LocationList";
+import geoLocation from "../api/geoLocation";
+import Header from './layout/Header'
+import {BrowserRouter, Route} from 'react-router-dom'
+import About from './pages/About'
+class App extends React.Component {
 
-class App extends React.Component{
-    state = {images: []}
-    onSearchSubmit = term=> {
-        unsplash.get('/search/photos', {
+    state = { locations: [] }
+    onSearchSubmit = (loc) => {
+        geoLocation.get('https://devru-latitude-longitude-find-v1.p.rapidapi.com/latlon.php', {
             params: {
-                query: term
+                location: loc
             }
         })
-            .then(pics => {
-                this.setState({ images: pics.data.results })
+            .then((response) => {
+                this.setState({ locations: response.data.Results })
             })
-            .catch(err => {
-                console.log(err)
+            .catch((error) => {
+                console.log(error)
             })
     }
 
-    render(){
+    render() {
         return (
-            <div className= "ui container" style ={{marginTop:"20px"}}>
-                <SearchBar onSubmit={this.onSearchSubmit}/>
-                <ImageList images={this.state.images}/>
-            </div>
-        );
+            <BrowserRouter>
+                <div className="ui container" style={{ marginTop: "20px", background: "#ffffff" }}>
+                    <Header />
+                    <Route exact path="/" render={props => (<React.Fragment>
+                        <SearchBar onSubmit={this.onSearchSubmit} />
+                        <LocationList locations={this.state.locations} />
+                    </React.Fragment>)} />
+                        <Route path ="/about" component={About}/>
+                </div>
+            </BrowserRouter>
+        ); 
     }
     
 };
