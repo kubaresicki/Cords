@@ -1,7 +1,7 @@
 ## Table of contents
 * [General info](#general-info)
 * [Technologies](#technologies)
-* [Setup](#setup)
+* [Setup](#setup) 
 
 # Cords - Geographical cordinates search app
 Simple app to get cordinates with React.js
