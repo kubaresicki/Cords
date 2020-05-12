@@ -24,7 +24,7 @@ class SearchBar extends React.Component {
         return <div className="ui segment"  style={{background: "#cccccc", borderRadius: "8px"}}> 
             <form className="ui form" onSubmit={this.onFormSubmit}>
                 <div className="field">
-                    <h1 style={{textAlign: 'center'}}>Put city name to get its geographical coordinates</h1>
+                    <h1 style={{textAlign: 'center'}}>Put city name</h1>
                 <input type="text" style={{textAlign: 'center'}} onChange={(e)=>this.setState({term: e.target.value})}
                 value={this.term}/>
                 </div>
